@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # https://docs.djangoproject.com/en/4.1/ref/contrib/humanize/
     'django.contrib.humanize', # Humanize
 
     'django.contrib.sites', # Allauth
@@ -68,7 +69,7 @@ INSTALLED_APPS = [
     # 'channels', # Channels
     'django_cleanup.apps.CleanupConfig', # Cleanup
     "debug_toolbar", # Debug Toolbar
-
+    'django_extensions', # Django Extensions
 
     'blog.apps.BlogConfig', # MyApps
 ]
@@ -101,11 +102,44 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+# Allauth
+# https://django-allauth.readthedocs.io/en/latest/installation.html
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+    },
+    'github': {
+        'SPOCE': [
+            'user',
+            'repo',
+            'read:ogr',
+        ]
+
+    }
+}
 
 WSGI_APPLICATION = 'mainsite.wsgi.application'
 
@@ -268,37 +302,21 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-# Allauth
-# https://django-allauth.readthedocs.io/en/latest/installation.html
+# email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_USER_TLS = True
+EMAIL_HOST_USER = os.getenv("EMAIL_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASS")
 
-SITE_ID = 1
+GOOGLE_RECAPTCHA_SECRET_KEY = os.getenv("GOOGLE_RECAPTCHA_SECRET_KEY")
 
-AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-
-# Provider specific settings
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-    },
-    'github': {
-        'SPOCE': [
-            'user',
-            'repo',
-            'read:ogr',
-        ]
-
-    }
+# https://docs.djangoproject.com/en/4.1/ref/contrib/messages/
+MESSAGE_TAGS = {
+    messages.DEBUG:	'aler-secondary',
+    messages.INFO: 'aler-info',
+    messages.SUCCESS: 'aler-success',
+    messages.WARNING: 'aler-warning',
+    messages.ERROR: 'aler-danger',
 }
