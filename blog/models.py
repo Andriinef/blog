@@ -5,6 +5,7 @@ from django.urls import reverse
 # https://docs.djangoproject.com/en/4.1/topics/auth/default/
 from django.contrib.auth.models import User
 from django.utils import timezone
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
@@ -34,7 +35,8 @@ class Post(models.Model):
     # поля модели
     title = models.CharField("Назва", max_length=100,  db_index=True)
     slug = models.SlugField(max_length=150, unique=True, db_index=True, verbose_name="URL")
-    content = models.TextField("Текст статті", max_length=5000, blank=True, null=True)
+    # content = models.TextField("Текст статті", max_length=5000, blank=True, null=True)
+    content = RichTextField("Текст статті", blank=True, null=True)
     photo = models.ImageField(upload_to="photo/%Y/%m/%d/", verbose_name="Фото")
     date_created = models.DateTimeField(default=timezone.now, verbose_name="Час публікації")
     date_updated= models.DateTimeField(auto_now=True, verbose_name="Час зміни")
