@@ -27,18 +27,21 @@ class Categoris(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("Categoris_detail", kwargs={"categoris_slug": self.slug})
+        return reverse("categoris_detail", kwargs={"categoris_slug": self.slug})
 
 
 class Post(models.Model):
     # поля модели
-    title = models.CharField(("Назва"), max_length=100,  db_index=True)
+    title = models.CharField("Назва", max_length=100,  db_index=True)
     slug = models.SlugField(max_length=150, unique=True, db_index=True, verbose_name="URL")
-    # content = models.TextField("Текст статті", max_length=5000, blank=True, null=True)
+    content = models.TextField("Текст статті", max_length=5000, blank=True, null=True)
+    photo = models.ImageField(upload_to="photo/%Y/%m/%d/", verbose_name="Фото")
     date_created = models.DateTimeField(default=timezone.now, verbose_name="Час публікації")
     date_updated= models.DateTimeField(auto_now=True, verbose_name="Час зміни")
-    # author = models.ForeignKey(User, on_delete=models.CASCADE)
-    # categoris = models.ForeignKey(Categoris, on_delete=models.CASCADE, verbose_name="Категорії")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    categoris = models.ForeignKey(Categoris, on_delete=models.CASCADE, verbose_name="Категорії")
+    likes = models.ManyToManyField(User, related_name='postcomment',verbose_name="Лайки", blank=True)
+    reply = models.ForeignKey("self", related_name='reply_ok',verbose_name="Відповідь", on_delete=models.CASCADE, null=True, blank=True)
 
     # мета опция
     class Meta:
@@ -50,4 +53,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("Post_detail", kwargs={"slug": self.slug})
+        return reverse("post_detail", kwargs={"slug": self.slug})
+
+    def total_likes(self):
+        return self.likes.count()
