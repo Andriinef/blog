@@ -23,6 +23,7 @@ urlpatterns = [
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', admin.site.urls), # admin site
     path('accounts/', include('allauth.urls')), # django-allauth
+    path('', include('blog.urls')), # blog site
 ]
 
 if settings.DEBUG:
