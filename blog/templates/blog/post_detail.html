@@ -1,0 +1,19 @@
+{% block content %}
+
+{% for post in blog_post_user_list %}
+
+    <h2>{{post.title}}</h2>
+
+    {% if post.photo %}
+    <p><img class="img-article-left thumb" src="{{post.photo.url}}"></p>
+    {% endif %}
+
+    {% autoescape off %}
+    {{post.content}}
+    {% endautoescape %}
+
+    <p class="last">Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
+
+{% endfor %}
+
+{% endblock %}
