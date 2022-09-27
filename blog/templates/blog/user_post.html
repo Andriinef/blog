@@ -15,8 +15,8 @@
     {{post.content|linebreaks|truncatewords:150}}
     {% endautoescape %}
 
-    <p class="last">Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
-    <p class="link-read-post"><a href="{{ ppost.get_absolute_url }}">Читати пост</a></p>
+    <p class="last">Автор: {{ post.author }}. Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
+    <p class="link-read-post"><a href="{{ post.get_absolute_url }}">Читати пост</a></p>
 
 {% endfor %}
 

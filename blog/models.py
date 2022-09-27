@@ -28,7 +28,7 @@ class Categoris(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("categoris_detail", kwargs={"categoris_slug": self.slug})
+        return reverse("categoris", kwargs={"categoris_slug": self.slug})
 
 
 class Post(models.Model):
@@ -55,7 +55,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("post_detail", kwargs={"slug": self.slug})
+        return reverse('post', kwargs={'post_slug': self.slug})
 
     def total_likes(self):
         return self.likes.count()

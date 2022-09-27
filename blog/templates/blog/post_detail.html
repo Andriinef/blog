@@ -1,19 +1,15 @@
+{% extends "blog/base.html" %}
+<!-- https://docs.djangoproject.com/en/4.1/ref/templates/builtins/ -->
+
 {% block content %}
+<h1>{{postpost_detail.title}}</h1>
 
-{% for post in blog_post_user_list %}
+{% if post_detail.photo %}
+<p><img class="img-article-left" src="{{post_detail.photo.url}}"></p>
+{% endif %}
 
-    <h2>{{post.title}}</h2>
-
-    {% if post.photo %}
-    <p><img class="img-article-left thumb" src="{{post.photo.url}}"></p>
-    {% endif %}
-
-    {% autoescape off %}
-    {{post.content}}
-    {% endautoescape %}
-
-    <p class="last">Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
-
-{% endfor %}
+{% autoescape off %}
+{{post_detail.content|linebreaks}}
+{% endautoescape %}
 
 {% endblock %}
