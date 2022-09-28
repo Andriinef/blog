@@ -23,7 +23,6 @@ class BlogListView(ListView):
     # Возвращаем контекстные данные для отображения списка объектов.
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Головна сторiнка'
         return context
 
 
@@ -42,7 +41,6 @@ class UserListView(ListView):
     # Возвращаем контекстные данные для отображения списка объектов.
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Новини'
         return context
 
     # Выборка отображения постов от конкретного user(author)
@@ -63,5 +61,4 @@ class PostDetailViev(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Пост'
         return context

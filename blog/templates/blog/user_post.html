@@ -1,23 +1,35 @@
 {% extends "blog/base.html" %}
 <!-- https://docs.djangoproject.com/en/4.1/ref/templates/builtins/ -->
 
-    {% block content %}
+{% block title %}
+{% if post %}
+{{post.author}}
+{% else %}
+Новини
+{% endif %}
+{% endblock %}
 
-    {% for post in blog_post_user_list %}
+{% block content %}
 
-    <h2>{{post.title}}</h2>
+{% if blog_post_user_list %}
 
-    {% if post.photo %}
-    <p><img class="img-photo" src="{{post.photo.url}}"></p>
-    {% endif %}
+{% for post in blog_post_user_list %}
 
-    {% autoescape off %}
-    {{post.content|linebreaks|truncatewords:150}}
-    {% endautoescape %}
+<h2>{{post.title}}</h2>
 
-    <p class="last">Автор: <a href="#">{{ post.author }}</a>. Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
-    <p class="link-read-post"><a href="{{ post.get_absolute_url }}">Читати пост</a></p>
+{% if post.photo %}
+<p><img class="img-photo" src="{{post.photo.url}}"></p>
+{% endif %}
 
-    {% endfor %}
+{% autoescape off %}
+{{post.content|linebreaks|truncatewords:150}}
+{% endautoescape %}
 
-    {% endblock %}
+<p class="last">Автор: <a href="#">{{ post.author }}</a>. Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
+<p class="link-read-post"><a href="{{ post.get_absolute_url }}">Читати пост</a></p>
+
+{% endfor %}
+{% else %}
+<p class="text-center">Постів немає</p>
+{% endif %}
+{% endblock %}
