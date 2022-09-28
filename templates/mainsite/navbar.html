@@ -1,25 +1,36 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">AN</a>
+      <li class="logo"></li>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Головна</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'blog' %}">Головна</a>
+          </li>
+          <li class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#">Категорії</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">ТЕХНОЛОГИИ И НАУКА</a>
+              <a class="dropdown-item" href="#">МИР</a>
+              <a class="dropdown-item" href="#">УКРАИНА</a>
+            </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Категорії</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Посилання</a>
+            <a class="nav-link active" href="{% url 'user' user %}">Пости</a>
           </li>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Пошук" aria-label="Пошук">
           <button class="btn btn-outline-success" type="submit">Пошук</button>
         </form>
+        <ul class="navbar-nav" style="padding-left: 20px; color: rgba(234, 255, 225, 0.9)">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item active" >{{user.username}} | <a href="#">Вийти</a></li>
+            {% else %}
+            <li class="nav-item active"><a href="#">Реєстрація</a> | <a href="#">Увійти</a></li>
+            {% endif %}
+          </ul>
       </div>
     </div>
 </nav>

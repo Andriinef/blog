@@ -1,23 +1,23 @@
 {% extends "blog/base.html" %}
 <!-- https://docs.djangoproject.com/en/4.1/ref/templates/builtins/ -->
 
-{% block content %}
+    {% block content %}
 
-{% for post in blog_post_user_list %}
+    {% for post in blog_post_user_list %}
 
     <h2>{{post.title}}</h2>
 
     {% if post.photo %}
-    <p><img class="img-article-left thumb" src="{{post.photo.url}}"></p>
+    <p><img class="img-photo" src="{{post.photo.url}}"></p>
     {% endif %}
 
     {% autoescape off %}
     {{post.content|linebreaks|truncatewords:150}}
     {% endautoescape %}
 
-    <p class="last">Автор: {{ post.author }}. Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
+    <p class="last">Автор: <a href="#">{{ post.author }}</a>. Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
     <p class="link-read-post"><a href="{{ post.get_absolute_url }}">Читати пост</a></p>
 
-{% endfor %}
+    {% endfor %}
 
-{% endblock %}
+    {% endblock %}

@@ -9,7 +9,22 @@ from blog.models import Post, Categoris
 
 
 class BlogListView(ListView):
-    pass
+    """ Список постов от user """
+    """ https://docs.djangoproject.com/en/4.1/ref/class-based-views/generic-display/ """
+    # Модель Post в moddel.py
+    model = Post
+    # Имя шаблона html
+    template_name = "blog/home.html"
+    # object, model_post, наш вариант =
+    # представление_модель_имя
+    context_object_name = "blog_home"
+    paginate_by = 6
+
+    # Возвращаем контекстные данные для отображения списка объектов.
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Головна сторiнка'
+        return context
 
 
 class UserListView(ListView):

@@ -1,0 +1,34 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.logo {
+  background: url("media/logo.png") no-repeat 10px 5px;
+  width: 70px;
+  height: 60px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 80px 40px 40px 40px;
+  min-height: 100vh;
+}
+
+.content {
+	flex: 1;
+}
+
+.img {
+  width: 100%;
+}
+
+.img-photo {
+  width: 50%;
+}
+
+.footer {
+  margin: -80px;
+}
