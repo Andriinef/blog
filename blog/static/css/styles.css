@@ -21,6 +21,16 @@ body {
 	flex: 1;
 }
 
+.navbar-user {
+  padding-left: 30px;
+  padding-right: 20px;
+  color: rgba(251, 251, 251, 0.9);
+}
+
+.go-out {
+  color: rgba(0, 251, 0, 0.9);
+}
+
 .img {
   width: 100%;
 }

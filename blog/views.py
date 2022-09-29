@@ -39,17 +39,22 @@ class UserListView(ListView):
     paginate_by = 6
 
     # Возвращаем контекстные данные для отображения списка объектов.
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-    # Выборка отображения постов от конкретного user(author)
-    # Cортировка по дате публикации начиная с последней
+    # Выборка отображения постов от конкретного user(author) через queryset
+    # Переопределение модель_имя в данном варианте на ['blog_post_user_list']
+    # Cортировка по дате публикации начиная с последней с помощью order_by
     """ https://docs.djangoproject.com/en/4.1/topics/http/shortcuts/ """
 
-    def get_queryset(self):
+    def get_context_data(self, *, object_list=None, **kwargs):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Post.objects.filter(author=user).order_by('-date_created')
+        queryset = Post.objects.filter(author=user)
+        context = super().get_context_data(**kwargs)
+        context['blog_post_user_list'] = queryset.order_by('-date_created')
+        return context
+
+
+    # def get_queryset(self):
+    #     user = get_object_or_404(User, username=self.kwargs.get('username'))
+    #     return Post.objects.filter(author=user).order_by('-date_created')
 
 
 class PostDetailViev(DetailView):

@@ -2,15 +2,15 @@
 <!-- https://docs.djangoproject.com/en/4.1/ref/templates/builtins/ -->
 
 {% block title %}
-{% if post %}
-{{post.title}}
+{% if post_detail %}
+{{post_detail.title}}
 {% else %}
 Пости
 {% endif %}
 {% endblock %}
 
 {% block content %}
-<h1>{{postpost_detail.title}}</h1>
+<h1>{{post_detail.title}}</h1>
 
 {% if post_detail.photo %}
 <p><img class="img-photo" src="{{post_detail.photo.url}}"></p>
@@ -19,5 +19,7 @@
 {% autoescape off %}
 {{post_detail.content|linebreaks}}
 {% endautoescape %}
+
+<p class="last">Автор: <a href="{% url 'user' user %}">{{ post_detail.author }}</a>. Дата: {{post_detail.date_created|date:"d-m-Y H:i:s"}}</p>
 
 {% endblock %}

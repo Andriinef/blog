@@ -9,24 +9,38 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'blog' %}">Головна</a>
           </li>
-          <li class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#">Категорії</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">ТЕХНОЛОГИИ И НАУКА</a>
-              <a class="dropdown-item" href="#">МИР</a>
-              <a class="dropdown-item" href="#">УКРАИНА</a>
+          <li class="dropdown">
+            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#">Категорії</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">ТЕХНОЛОГИИ И НАУКА</a>
+                <a class="dropdown-item" href="#">МИР</a>
+                <a class="dropdown-item" href="#">УКРАИНА</a>
+              </div>
             </div>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'user' user %}">Пости</a>
+          </li>
+          <li class="dropdown">
+            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#">Дискусія</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Нова дискусія</a>
+                <a class="dropdown-item" href="#">Стрічка дискусій</a>
+                <a class="dropdown-item" href="#">Лайкi</a>
+                <a class="dropdown-item" href="#">Збереженнi</a>
+                <a class="dropdown-item" href="#">Bci дискусії</a>
+                <a class="dropdown-item" href="#">Мої дискусії</a>
+              </div>
+            </div>
           </li>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Пошук" aria-label="Пошук">
           <button class="btn btn-outline-success" type="submit">Пошук</button>
         </form>
-        <ul class="navbar-nav" style="padding-left: 20px; color: rgba(234, 255, 225, 0.9)">
+        <ul class="navbar-nav navbar-user">
         {% if request.user.is_authenticated %}
-        <li class="nav-item active" >{{user.username}} | <a href="#">Вийти</a></li>
+        <li class="nav-item active" >{{user.username}} | <a class="go-out" href="#">Вийти</a></li>
             {% else %}
             <li class="nav-item active"><a href="#">Реєстрація</a> | <a href="#">Увійти</a></li>
             {% endif %}

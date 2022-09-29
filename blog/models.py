@@ -33,7 +33,7 @@ class Categoris(models.Model):
 
 class Post(models.Model):
     # поля модели
-    title = models.CharField("Назва", max_length=100,  db_index=True)
+    title = models.CharField("Назва", max_length=100,  db_index=True) # Настройки полей
     slug = models.SlugField(max_length=150, unique=True, db_index=True, verbose_name="URL")
     # content = models.TextField("Текст статті", max_length=5000, blank=True, null=True)
     content = RichTextField("Текст статті", blank=True, null=True) # ckeditor
@@ -57,5 +57,6 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_slug': self.slug})
 
+    # Подсчет лайков
     def total_likes(self):
         return self.likes.count()
