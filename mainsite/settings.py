@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'django_extensions', # Django Extensions
 
     'blog.apps.BlogConfig', # MyApps
+    'discussions.apps.DiscussionsConfig', # MyApps
 ]
 
 # Channels

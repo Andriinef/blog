@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls), # admin site
     path('accounts/', include('allauth.urls')), # django-allauth
     path('', include('blog.urls')), # blog site
+    path("discussions/", include('discussions.urls'), name="discussions") # discussions site
 ]
 
 if settings.DEBUG:

@@ -6,4 +6,116 @@
 
 {% block content %}
 <p><img class="img" src="media/blog/slava.png"></p>
+<header class="header d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="text-info">Доброго вечора, Ми з України!</h1>
+                <p class="text-white">
+                    І вам слава, сині гори,<br>
+                    Кригою окуті.<br>
+                    І вам, лицарі великі,<br>
+                    Богом не забуті.<br>
+                    Борітеся — поборете!<br>
+                    Вам Бог помагає!<br>
+                    За вас правда, за вас слава<br>
+                    І воля святая!<br></p>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <div id="about" class="py-5 border-bottom border-info">
+        <h2 class="text-center mb-5">Наша команда</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-3 text-center">
+                    <img src="/static/img/avatar.png" alt="" class="border border-3 border-info rounded-circle img-fluid">
+                    <h2>Андрій</h2>
+                    <p>молодший спецiалiст</p>
+                </div>
+                <div class="col-sm-6 col-md-3 text-center">
+                    <img src="/static/img/avatar.png" alt="" class="border border-3 border-info rounded-circle img-fluid">
+                    <h2>Андрій</h2>
+                    <p>молодший спецiалiст</p>
+                </div>
+                <div class="col-sm-6 col-md-3 text-center">
+                    <img src="/static/img/avatar.png" alt="" class="border border-3 border-info rounded-circle img-fluid">
+                    <h2>Андрій</h2>
+                    <p>молодший спецiалiст</p>
+                </div>
+                <div class="col-sm-6 col-md-3 text-center">
+                    <img src="/static/img/avatar.png" alt="" class="border border-3 border-info rounded-circle img-fluid">
+                    <h2>Андрій</h2>
+                    <p>молодший спецiалiст</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="gallery" class="py-5 border-bottom border-info">
+        <h2 class="text-center mb-5">Галерея</h2>
+        <div class="container">
+            <div id="carouselExampleControls" class="carousel-dark carousel slide" data-bs-ride="carousel">
+<div class="carousel-inner">
+<div class="carousel-item active">
+  <img src="/static/img/portfolio/portfolio-1.png" class="d-block w-100" alt="...">
+</div>
+<div class="carousel-item">
+  <img src="/static/img/portfolio/portfolio-1.png" class="d-block w-100" alt="...">
+</div>
+<div class="carousel-item">
+  <img src="/static/img/portfolio/portfolio-1.png" class="d-block w-100" alt="...">
+</div>
+</div>
+<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+<span class="carousel-control-next-icon" aria-hidden="true"></span>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+    </div>
+    </div>
+    <div id="blog" class="py-5 border-bottom border-info">
+        <h2 class="text-center mb-5">Новини</h2>
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-4 d-flex">
+                    <div class="card">
+                       <img src="https://img.pravda.com/images/doc/1/3/133025a-gettyimages-1238200350.jpg" class="card-img-top img-fluid" alt="">
+                       <div class="card-body">
+                        <h5 class="card-title">Супутник для українських військових</h5>
+                        <p class="card-text">Супутник для українських військових: стало відомо, чим він буде корисним ЗСУ</p>
+                        <a href="#" class="btn btn-info">Далi</a>
+                      </div>
+                    </div>
+                </div>
+                {% if blog_home %}
+                    {% for post in blog_home %}
+                    <div class="col-md-4 d-flex">
+                        <div class="card">
+                        {% if post.photo %}
+                        <p><img class="img-photo" src="{{post.photo.url}}"></p>
+                        {% endif %}
+                        <div class="card-body">
+                        <h5 class="card-title">{{post.title}}</h5>
+
+                        {% autoescape off %}
+                        <p class="card-text">{{post.content|linebreaks|truncatewords:20}}</p>
+                        {% endautoescape %}
+                        <p class="last">Автор: <a href="{% url 'user' user %}">{{ post.author }}</a>. Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
+                        <a class="btn btn-info" href="{{ post.get_absolute_url }}">Далi</a>
+                        </div>
+                        </div>
+                    </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center">Постів немає</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
 {% endblock %}

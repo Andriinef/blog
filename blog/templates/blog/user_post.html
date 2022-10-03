@@ -2,8 +2,8 @@
 <!-- https://docs.djangoproject.com/en/4.1/ref/templates/builtins/ -->
 
 {% block title %}
-{% if post %}
-{{ post.author}}
+{% if blog_post_user_list %}
+{{ user }}
 {% else %}
 Новини
 {% endif %}
@@ -11,25 +11,30 @@
 
 {% block content %}
 
-{% if blog_post_user_list %}
+<div class="container">
+    <div class="row">
+        {% if blog_post_user_list %}
+            {% for post in blog_post_user_list %}
+            <div class="col-md-4 d-flex">
+                <div class="card">
+                {% if post.photo %}
+                <p><img class="img-photo" src="{{post.photo.url}}"></p>
+                {% endif %}
+                <div class="card-body">
+                <h5 class="card-title">{{post.title}}</h5>
 
-{% for post in blog_post_user_list %}
-
-<h2>{{post.title}}</h2>
-
-{% if post.photo %}
-<p><img class="img-photo" src="{{post.photo.url}}"></p>
-{% endif %}
-
-{% autoescape off %}
-{{post.content|linebreaks|truncatewords:150}}
-{% endautoescape %}
-
-<p class="last">Автор: <a href="{% url 'user' user %}">{{ post.author }}</a>. Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
-<p class="link-read-post"><a href="{{ post.get_absolute_url }}">Читати пост</a></p>
-
-{% endfor %}
-{% else %}
-<p class="text-center">Постів немає</p>
-{% endif %}
+                {% autoescape off %}
+                <p class="card-text">{{post.content|linebreaks|truncatewords:20}}</p>
+                {% endautoescape %}
+                <p class="last">Автор: <a href="{% url 'user' user %}">{{ post.author }}</a>. Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
+                <a class="btn btn-info" href="{{ post.get_absolute_url }}">Далi</a>
+                </div>
+                </div>
+            </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center">Постів немає</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

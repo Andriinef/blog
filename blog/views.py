@@ -9,7 +9,7 @@ from blog.models import Post, Categoris
 
 
 class BlogListView(ListView):
-    """ Список постов от user """
+    """ Главная страница """
     """ https://docs.djangoproject.com/en/4.1/ref/class-based-views/generic-display/ """
     # Модель Post в moddel.py
     model = Post
@@ -18,7 +18,7 @@ class BlogListView(ListView):
     # object, model_post, наш вариант =
     # представление_модель_имя
     context_object_name = "blog_home"
-    paginate_by = 6
+    paginate_by = 2
 
     # Возвращаем контекстные данные для отображения списка объектов.
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -51,7 +51,6 @@ class UserListView(ListView):
         context['blog_post_user_list'] = queryset.order_by('-date_created')
         return context
 
-
     # def get_queryset(self):
     #     user = get_object_or_404(User, username=self.kwargs.get('username'))
     #     return Post.objects.filter(author=user).order_by('-date_created')
@@ -67,3 +66,8 @@ class PostDetailViev(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class AnonymousUserListView(ListView):
+    model = Post
+    template_name = "blog/anonymous.html"

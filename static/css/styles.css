@@ -18,7 +18,7 @@ body {
 }
 
 .content {
-	flex: 1;
+  flex: 1;
 }
 
 .navbar-user {
@@ -36,9 +36,55 @@ body {
 }
 
 .img-photo {
-  width: 50%;
+  width: 100%;
+}
+
+.header{
+	background-image: url('/static/img/top-banner.jpg');
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	height: 50vh;
+	position: relative;
+}
+
+/*grid*/
+.grid {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.grid .container {
+	background-image: url('../img/grid.png');
+	background-position: center center;
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+	background-repeat: no-repeat;
+	z-index: 2;
+}
+
+.flexbox {
+  display: flex;
+}
+/* Гарантия, что вложенные элементы с содержимым будут заполнять высоту колонок */
+.element {
+    height: 100%;
 }
 
 .footer {
   margin: -80px;
+}
+
+p.link-read-post {
+  text-align: left;
+}
+p.link-read-post a {
+  padding: 10px;
+  min-width: 100px;
+  background: #333671;
+  color: #fff;
+  text-decoration: none;
 }

@@ -18,6 +18,7 @@ class Categoris(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name="Категорія") # настройка полей
     category_slug = models.SlugField(max_length=150, unique=True, db_index=True, verbose_name="URL")
 
+    # Модель поста для расширения или изменения доступа к модели
     # мета опция
     class Meta:
         verbose_name = ("Категорія")
@@ -45,6 +46,7 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, related_name='postcomment',verbose_name="Лайки", blank=True)
     reply = models.ForeignKey("self", related_name='reply_ok',verbose_name="Відповідь", on_delete=models.CASCADE, null=True, blank=True)
 
+    # Модель поста для расширения или изменения доступа к модели
     # мета опция
     class Meta:
         verbose_name = ("Пост")

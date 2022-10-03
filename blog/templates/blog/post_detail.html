@@ -10,16 +10,19 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{post_detail.title}}</h1>
+<div class="col-md-12">
+    <div class="card">
+    {% if post_detail.photo %}
+    <p><img class="img-photo" src="{{post_detail.photo.url}}"></p>
+    {% endif %}
+    <div class="card-body">
+    <h1>{{post_detail.title}}</h1>
 
-{% if post_detail.photo %}
-<p><img class="img-photo" src="{{post_detail.photo.url}}"></p>
-{% endif %}
+    {% autoescape off %}
+    {{post_detail.content|linebreaks}}
+    {% endautoescape %}
 
-{% autoescape off %}
-{{post_detail.content|linebreaks}}
-{% endautoescape %}
-
-<p class="last">Автор: <a href="{% url 'user' user %}">{{ post_detail.author }}</a>. Дата: {{post_detail.date_created|date:"d-m-Y H:i:s"}}</p>
-
+    <p class="last">Автор: <a href="{% url 'user' user %}">{{ post_detail.author }}</a>. Дата: {{post_detail.date_created|date:"d-m-Y H:i:s"}}</p>
+    </div>
+</div>
 {% endblock %}
