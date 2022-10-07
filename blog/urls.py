@@ -9,4 +9,5 @@ urlpatterns = [
     path('post/<slug:post_slug>/', PostDetailViev.as_view(), name="post"),
     path('user/AnonymousUser/', AnonymousUserListView.as_view(), name="anonymous"),
     path('user/<str:username>/', UserListView.as_view(), name="user"),
+    path('category/<slug:category_slug>/', CategoriesListView.as_view(), name="category"),
 ]

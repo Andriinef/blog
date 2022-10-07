@@ -1,15 +1,15 @@
 from django.contrib import admin
-from blog.models import Post, Categoris
+from blog.models import Post, Categories
 from django.utils.safestring import mark_safe
 
 # Register your models here.
 # Яркий скин для административного интерфейса Django. https://django-grappelli.readthedocs.io/en/latest/quickstart.html
 
 
-#admin.site.register(Categoris)
+#admin.site.register(Categories)
 # admin.site.register(Post)
 
-@admin.register(Categoris)
+@admin.register(Categories)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name') # список отображаемых ссылок
@@ -27,17 +27,21 @@ class PageAdmin(admin.ModelAdmin):
         'get_html_photo',
         'date_created',
         'date_updated',
-        'categoris',
+        'categories',
+        'status',
+        # 'publish',
         'slug',
         'reply',
     ]
     prepopulated_fields = {"slug": ("title",)} # автоматически предварительно заполнить поле SlugField
+    list_filter = ('status', 'date_created', 'author') # список фильтр
     search_fields = ('title', 'content') # поля поиска
     list_display_links = ('id', 'title') # список отображаемых ссылок
-    fields = ('title', 'slug', 'categoris', 'content', 'photo', 'date_created', 'likes', 'reply','author',) # поля
-    # list_editable = ('is_published',) # список_ редактируемый
-    # list_filter = ('is_published', 'date_created') # список фильтр
-    # readonly_fields = ('date_created', 'date_update', 'get_html_photo')
+    fields = ('title', 'slug', 'categories', 'content', 'photo', 'date_created',  'author', 'status',) # фильтр полей добовления постов
+    date_hierarchy = 'date_created' # для быстрого перехода по иерархии дат
+    # raw_id_fields = ('author',)
+    list_editable = ('status', 'reply',) # список_ редактируемый
+    # readonly_fields = ('date_created', 'get_html_photo') # для отображения только для чтения.
 
     def get_html_photo(self, object):
         if object.photo:

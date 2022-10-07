@@ -30,8 +30,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-md-3 text-center">
-                    <img src="/static/img/avatar.png" alt="" class="border border-3 border-info rounded-circle img-fluid">
-                    <h2>Андрій</h2>
+                    <img src="/static/img/SHEVCHENKO.jpg" width="206" alt="" class="border border-3 border-info rounded-circle img-fluid" >
+                    <a class="a-user" href="{% url 'user' user %}"><h2>Андрій</h2></a>
                     <p>молодший спецiалiст</p>
                 </div>
                 <div class="col-sm-6 col-md-3 text-center">
@@ -88,7 +88,7 @@
                        <div class="card-body">
                         <h5 class="card-title">Супутник для українських військових</h5>
                         <p class="card-text">Супутник для українських військових: стало відомо, чим він буде корисним ЗСУ</p>
-                        <a href="#" class="btn btn-info">Далi</a>
+                        <a href="https://tsn.ua/ukrayina/suputnik-dlya-ukrayinskih-viyskovih-stalo-vidomo-chim-vin-bude-korisnim-zsu-foto-2137690.html" class="btn btn-info">Далi</a>
                       </div>
                     </div>
                 </div>
@@ -110,9 +110,10 @@
                         </div>
                         </div>
                     </div>
-                        {% endfor %}
-                    {% else %}
-                        <p class="text-center">Постів немає</p>
+                    {% endfor %}
+                    {% include 'mainsite/pagination.html' %}
+                {% else %}
+                    <p class="text-center">Постів немає</p>
                 {% endif %}
             </div>
         </div>

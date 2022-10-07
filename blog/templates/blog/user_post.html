@@ -14,27 +14,28 @@
 <div class="container">
     <div class="row">
         {% if blog_post_user_list %}
-            {% for post in blog_post_user_list %}
+            {% for item in blog_post_user_list %}
             <div class="col-md-4 d-flex">
                 <div class="card">
-                {% if post.photo %}
-                <p><img class="img-photo" src="{{post.photo.url}}"></p>
+                {% if item.photo %}
+                <p><img class="img-photo" src="{{item.photo.url}}"></p>
                 {% endif %}
                 <div class="card-body">
-                <h5 class="card-title">{{post.title}}</h5>
+                <h5 class="card-title">{{item.title}}</h5>
 
                 {% autoescape off %}
-                <p class="card-text">{{post.content|linebreaks|truncatewords:20}}</p>
+                <p class="card-text">{{item.content|linebreaks|truncatewords:20}}</p>
                 {% endautoescape %}
-                <p class="last">Автор: <a href="{% url 'user' user %}">{{ post.author }}</a>. Дата: {{post.date_created|date:"d-m-Y H:i:s"}}</p>
-                <a class="btn btn-info" href="{{ post.get_absolute_url }}">Далi</a>
+                <p class="last">Автор: <a href="{% url 'user' user %}">{{ item.author }}</a>. Дата: {{item.date_created|date:"d-m-Y H:i:s"}}</p>
+                <a class="btn btn-info" href="{{ item.get_absolute_url }}">Далi</a>
                 </div>
                 </div>
             </div>
-                {% endfor %}
-            {% else %}
-                <p class="text-center">Постів немає</p>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">Постів немає</p>
         {% endif %}
+            {% include 'mainsite/pagination.html' %}
     </div>
 </div>
 {% endblock %}

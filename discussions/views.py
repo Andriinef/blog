@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, FormView
-from blog.models import Post, Categoris
+from blog.models import Post, Categories
 
 
 # Create your views here.
