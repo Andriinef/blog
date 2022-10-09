@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+<!-- https://docs.djangoproject.com/en/4.1/ref/templates/builtins/ -->
+
+{% block title %}Поделиться публикацией{% endblock %}
+{% block content %}
+    {% if sent %}
+        <h1>E-mail успешно отправлено</h1>
+        <p>
+            "{{ post.title }}" был успешно отправлен на {{ cd.to }}.
+        </p>
+    {% else %}
+        <h2>Лист по e-mail</h2>
+    <div class="container mb-3">
+        <form action="." method="POST" class="card p-3 mt-5" autocomplete="off">
+            {% csrf_token %}
+            {{ form | crispy}}
+            <div class="form-actions">
+                <button class="btn btn-info" type="submit">Вiдправити</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+{% endblock %}

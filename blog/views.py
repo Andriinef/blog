@@ -1,7 +1,9 @@
-from unicodedata import category
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.contrib.auth.models import User
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 
 from blog.models import Post, Categories
 
@@ -49,7 +51,7 @@ class UserListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = get_object_or_404(User, username=self.kwargs.get('username'))
-        queryset = Post.objects.filter(author=user)
+        queryset = Post.objects.filter(author=user, status=True)
         context['blog_post_user_list'] = queryset.order_by('-date_created')
         return context
 
