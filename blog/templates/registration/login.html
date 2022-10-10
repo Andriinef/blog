@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+<!-- https://docs.djangoproject.com/en/4.1/ref/templates/builtins/ -->
+{% load crispy_forms_tags %}
+
+{% block title %}Вхiд в акаунт{% endblock %}
+{% block content %}
+    <!--Login-->
+    <div class="container py-5">
+        <h1>Логин</h1>
+        {% if form.errors %}
+            <p>{{ form.error.error }}</p>
+        {% endif %}
+        <div class="mb-3">
+        <form class="form-label" action="{% url 'login' %}" method="POST">
+        {{ form | crispy }}
+        {% csrf_token %}
+            <div class="form-actions">
+                <button class="btn btn-primary" style="margin: 1ex;" type="submit">Увiйти</button>
+            </div>
+        </form>
+        <p class="text">Немає облікового запису? <a href="{% url 'register' %}">Створити аккаунт</a>.</p>
+        </div>
+        <p class="text">Забули пароль? <a href="{% url 'password_reset_user' %}">Відновлення паролю</a></p>
+    </div>
+{% endblock %}

@@ -36,6 +36,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 # Debug Toolbar
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
 INTERNAL_IPS = [
@@ -60,12 +63,14 @@ INSTALLED_APPS = [
     'django.contrib.sites', # Allauth
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
 
     'crispy_forms', # FORMS
     'ckeditor', # CKEditor
     # 'channels', # Channels
+    # 'captcha', # Captcha
     'django_cleanup.apps.CleanupConfig', # Cleanup
     "debug_toolbar", # Debug Toolbar
     'django_extensions', # Django Extensions
@@ -303,7 +308,8 @@ CKEDITOR_CONFIGS = {
 }
 
 # email
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.getenv("EMAIL_USER")

@@ -24,6 +24,7 @@
           <li class="dropdown">
             <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#">Дискусія</a>
               <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'contact_email' %}">Лист по email</a>
                 <a class="dropdown-item" href="#">Нова дискусія</a>
                 <a class="dropdown-item" href="#">Стрічка дискусій</a>
                 <a class="dropdown-item" href="#">Лайкi</a>
@@ -56,9 +57,9 @@
         </form>
         <ul class="navbar-nav">
         {% if request.user.is_authenticated %}
-        <li class="nav-item active navbar-user">{{user.username}} | <a class="go-out" href="#">Вийти</a></li>
+        <li class="nav-item active navbar-user">{{user.username}} | <a class="go-out" href="{% url 'logout' %}">Вийти</a></li>
             {% else %}
-            <li class="nav-item active navbar-user"><a href="#">Реєстрація</a> | <a class="go-out" href="#">Увійти</a></li>
+            <li class="nav-item active navbar-user"><a href="{% url 'register' %}">Реєстрація</a> | <a class="go-out" href="{% url 'login' %}">Увійти</a></li>
             {% endif %}
           </ul>
       </div>

@@ -1,22 +1,21 @@
 {% extends "blog/base.html" %}
-{% load crispy_forms_tags %}
 <!-- https://docs.djangoproject.com/en/4.1/ref/templates/builtins/ -->
 
-{% block title %}Поделиться публикацией{% endblock %}
+{% block title %}Поділитись публікацією{% endblock %}
 {% block content %}
     {% if sent %}
-        <h1>E-mail успешно отправлено</h1>
+        <h1>E-mail успішно відправлено</h1>
         <p>
-            "{{ post.title }}" был успешно отправлен на {{ cd.to }}.
+            "{{ post.title }}"був успішно відправлений на {{ cd.to }}.
         </p>
     {% else %}
+    <div class="container">
         <h2>Лист по e-mail</h2>
-    <div class="container mb-3">
-        <form action="." method="POST" class="card p-3 mt-5" autocomplete="off">
+        <form action="." method="POST" class="row g-3 align-items-center" autocomplete="off">
             {% csrf_token %}
-            {{ form | crispy}}
+            {{ form }}
             <div class="form-actions">
-                <button class="btn btn-info" type="submit">Вiдправити</button>
+                <button class="btn btn-info" type="submit" style="margin: 1ex;">Вiдправити</button>
             </div>
         </form>
     </div>

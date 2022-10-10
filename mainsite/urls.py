@@ -20,11 +20,11 @@ from django.conf import settings
 from django.conf.urls import include
 
 urlpatterns = [
-    path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', admin.site.urls), # admin site
-    path('accounts/', include('allauth.urls')), # django-allauth
     path('', include('blog.urls')), # blog site
-    path("discussions/", include('discussions.urls'), name="discussions") # discussions site
+    path('accounts/', include('allauth.urls')), # django-allauth
+    path("discussions/", include('discussions.urls')), # discussions site
+    path('grappelli/', include('grappelli.urls')), # grappelli URLS
 ]
 
 if settings.DEBUG:

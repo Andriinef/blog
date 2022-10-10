@@ -5,5 +5,9 @@
 {% endblock %}
 
 {% block content %}
-<h1>Незареєстрований користувач</h1>
+<div class="container">
+    <h2>Незареєстрований користувач</h2>
+    <p class="text">Увійдіть до облікового запису - <a class="go-out" href="{% url 'login' %}">Увійти</a></p>
+    <p class="text">Немає облікового запису? <a href="{% url 'register' %}">Створити аккаунт</a>.</p>
+</div>
 {% endblock %}
