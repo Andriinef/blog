@@ -1,5 +1,4 @@
 from enum import unique
-from random import choices
 from time import timezone
 from django.db import models
 # https://docs.djangoproject.com/en/4.1/ref/urlresolvers/
@@ -8,6 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
 from ckeditor.fields import RichTextField
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 # Create your models here.
@@ -15,23 +15,28 @@ from ckeditor.fields import RichTextField
 # https://django.fun/ru/docs/django/4.0/topics/db/models/
 
 
-class Categories(models.Model):
-    # поля модели
-    name = models.CharField(max_length=100, db_index=True, verbose_name="Категорія") # настройка полей
-    category_slug = models.SlugField(max_length=150, unique=True, db_index=True, verbose_name="URL")
+class Category(MPTTModel):
 
-    # Модель поста для расширения или изменения доступа к модели
-    # мета опция
     class Meta:
-        verbose_name = ("Категорія")
-        verbose_name_plural = ("Категорії")
+        verbose_name = 'Категории'
+        verbose_name_plural = 'Категории'
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True,on_delete=models.CASCADE, verbose_name='Батьківська категорія')
+    name = models.CharField(max_length=250,verbose_name="Категорія")
+    slug = models.SlugField(unique=True, verbose_name="URL")
 
-    # методы модели
     def __str__(self):
-        return self.name
+
+        try:
+
+            ancestors = self.get_ancestors(include_self=True)
+            ancestors = [i.name for i in ancestors]
+        except:
+            ancestors = [self.name]
+
+        return ' > '.join(ancestors[:len(ancestors) + 1])
 
     def get_absolute_url(self):
-        return reverse("category", kwargs={"category_slug": self.category_slug})
+        return reverse('category_detail',kwargs={'slug': self.slug})
 
 
 class Post(models.Model):
@@ -46,7 +51,7 @@ class Post(models.Model):
     date_updated= models.DateTimeField(auto_now=True, verbose_name="Час зміни")
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
     status = models.BooleanField(default=True, verbose_name="Публікація")
-    categories = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name='postcategory', verbose_name="Категорії")
+    category =  TreeForeignKey(Category, blank=True, null=True, related_name='category', verbose_name="Категорії",on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='postcomment',verbose_name="Лайки", blank=True)
     reply = models.ForeignKey("self", related_name='reply_ok',verbose_name="Відповідь", on_delete=models.CASCADE, null=True, blank=True)
 
@@ -61,7 +66,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'post_slug': self.slug})
+        return reverse('post_detail', kwargs={'slug': self.slug})
 
     # Подсчет лайков
     def total_likes(self):

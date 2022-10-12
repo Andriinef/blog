@@ -1,5 +1,5 @@
 from django import forms
-from blog.models import Post, Categories
+from blog.models import *
 # from captcha.fields import CaptchaField
 
 

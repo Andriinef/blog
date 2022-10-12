@@ -74,9 +74,11 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig', # Cleanup
     "debug_toolbar", # Debug Toolbar
     'django_extensions', # Django Extensions
+    'mptt', # Django mptt
 
     'blog.apps.BlogConfig', # MyApps
     'discussions.apps.DiscussionsConfig', # MyApps
+    'django_mptt_admin', #Django mptt-admin
 ]
 
 # Channels

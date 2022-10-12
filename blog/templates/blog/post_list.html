@@ -2,15 +2,16 @@
 <!-- https://docs.djangoproject.com/en/4.1/ref/templates/builtins/ -->
 
 {% block title %}
-{% if blog_post_user_list %}
+{% if post_list %}
 {{ user }}
 {% else %} Новини {%endif %}
 {% endblock %}
 {% block content %}
+
 <div class="container">
   <div class="row">
-    {% if blog_post_user_list %}
-    {% for item in blog_post_user_list %}
+    {% if post_list %}
+    {% for item in post_list %}
     <div class="col-md-4 d-flex">
       <div class="card">
         {% if item.photo %}
@@ -22,7 +23,7 @@
           {% autoescape off %}
           <p class="card-text">{{item.content|linebreaks|truncatewords:20}}</p>
           {% endautoescape %}
-          <p class="first">Категорія: <a href="#">{{item.category}}</a></p>
+          <p class="first">Категорія: {{item.category}}</p>
           <p class="last">
             Автор: <a href="{% url 'user' user %}">{{ item.author }}</a>. Дата:
             {{item.date_created|date:"d-m-Y H:i:s"}}

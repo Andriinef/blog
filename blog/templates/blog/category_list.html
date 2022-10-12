@@ -1,0 +1,17 @@
+{% load mptt_tags %}
+
+<li class="dropdown">
+    <div class="nav-item dropdown">
+        <a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#">Категорії</a>
+        <div class="dropdown-menu">
+            {% recursetree object_category_list %}
+            <a class="dropdown-item" href="{{ node.get_absolute_url }}">{{node.name}}</a>
+            {% if not node.is_leaf_node %}
+            <ul class="children">
+            {{ children }}
+            </ul>
+            {% endif %}
+            {% endrecursetree %}
+        </div>
+    </div>
+</li>

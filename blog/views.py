@@ -4,7 +4,7 @@ from django.views import View
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 
-from blog.models import Post, Categories
+from blog.models import *
 from blog.forms import UserCreationForm
 
 # Create your views here.
@@ -26,8 +26,6 @@ class BlogListView(ListView):
     # Возвращаем контекстные данные для отображения списка объектов.
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        # queryset = Post.objects.filter(status=True)
-        # context['blog_home'] = queryset.order_by('-date_created', '-id')
         return context
 
 
@@ -52,14 +50,10 @@ class UserListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        # user = get_object_or_404(User, username=self.kwargs.get('username'))
         # queryset = Post.objects.filter(author=user, status=True)
         # context['blog_post_user_list'] = queryset.order_by('-date_created', '-id')
         return context
-
-    # def get_queryset(self):
-    #     user = get_object_or_404(User, username=self.kwargs.get('username'))
-    #     return Post.objects.filter(author=user).order_by('-date_created')
 
 
 class PostDetailViev(DetailView):
@@ -67,24 +61,38 @@ class PostDetailViev(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = "post_detail"
-    slug_url_kwarg = "post_slug"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
 
-class CategoriesListView(ListView):
-    model = Categories
-    template_name = "categories_list.html"
-    context_object_name = 'list_categories'
+class CategoryListView(ListView):
+    """ Категории """
+    model = Category
+    context_object_name = 'object_category_list'
+    template_name = "blog/category_list.html"
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+
+class PostByCategoryView(ListView):
+    model = Category
+    template_name = "blog/post_list.html"
+    context_object_name = "post_list"
+
+    def get_queryset(self):
+        self.category = Category.objects.get(slug=self.kwargs['slug'])
+        queryset = Post.objects.filter(category=self.category)
+        return queryset
+
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['name'] = self.category
         return context
+
 
 
 class RegisterViev(View):
+    """Регистрация"""
     template_name = 'registration/register.html'
 
     def get(self, request):
