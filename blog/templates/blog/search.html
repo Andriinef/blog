@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+<!-- https://docs.djangoproject.com/en/4.1/ref/templates/builtins/ -->
+
+{% block title %}
+{% if post_list %}
+{{ user }}
+{% else %} Новини {%endif %}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    {% if post_list %}
+    {% for item in post_list %}
+    <div class="col-md-4 d-flex">
+      <div class="card">
+        {% if item.photo %}
+        <p><img class="img-photo" src="{{item.photo.url}}"></p>
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{item.title}}</h5>
+
+          {% autoescape off %}
+          <p class="card-text">{{item.content|linebreaks|truncatewords:20}}</p>
+          {% endautoescape %}
+          <p class="first">Категорія: {{item.category}}</p>
+          <p class="last">
+            Автор: <a href="{% url 'user' user %}">{{ item.author }}</a>. Дата:
+            {{item.date_created|date:"d-m-Y H:i:s"}}
+          </p>
+          <a class="btn btn-info" href="{{ item.get_absolute_url }}">Далi</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="text-center">Постів немає</p>
+    {% endif %}
+    {% include 'mainsite/pagination.html' %}
+  </div>
+</div>
+{% endblock %}

@@ -1,8 +1,10 @@
+import genericpath
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.views import View
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 from blog.models import *
 from blog.forms import UserCreationForm
@@ -120,3 +122,22 @@ class RegisterViev(View):
 class AnonymousUserListView(ListView):
     model = Post
     template_name = "blog/anonymous.html"
+
+
+class SearchResultsView(ListView):
+    model = Post
+    template_name = "blog/search.html"
+    context_object_name = "post_list"
+    paginate_by = 3
+
+    def get_queryset(self):
+        query = self.request.GET.get('search', None)
+        object_list = Post.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query)
+        )
+        return object_list
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search"] = f"search={self.request.GET.get('search')}&"
+        return context

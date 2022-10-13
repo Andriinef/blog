@@ -15,4 +15,5 @@ urlpatterns = [
     path('category/', CategoryListView.as_view(), name="category_list"),
     path('category/<slug:slug>/', PostByCategoryView.as_view(), name='category_detail'),
     path('register/', RegisterViev.as_view(), name="register"),
+    path('search/', SearchResultsView.as_view(), name='search_results'),
 ]
