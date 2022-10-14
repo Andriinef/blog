@@ -5,8 +5,15 @@ body {
 }
 
 .a-user {
-  color: black;
-  text-decoration: none;
+    color: black; /* Цвет обычной ссылки */
+    text-decoration: none; /* Убираем подчёркивание у ссылок */
+}
+.a-user:visited {
+    color: rgba(0, 0, 0, 0.4); /* Цвет посещённой ссылки */
+}
+.a-user:hover {
+    color: red; /* Цвет ссылки при наведении */
+    /* text-decoration: underline; Добавляем подчёркивание */
 }
 
 .logo {
