@@ -1,10 +1,10 @@
-import genericpath
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.views import View
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.models import User
 from django.db.models import Q
+
+
 
 from blog.models import *
 from blog.forms import UserCreationForm
@@ -92,14 +92,13 @@ class PostByCategoryView(ListView):
         return context
 
 
-
 class RegisterViev(View):
     """Регистрация"""
     template_name = 'registration/register.html'
 
     def get(self, request):
         context = {
-            'form' : UserCreationForm
+            'form': UserCreationForm
         }
         return render(request, self.template_name, context)
 
@@ -115,9 +114,10 @@ class RegisterViev(View):
             login(request, user)
             return redirect('blog')
         context = {
-            'form':form
+            'form': form
         }
         return render(request, self.template_name, context)
+
 
 class AnonymousUserListView(ListView):
     model = Post

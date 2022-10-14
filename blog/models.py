@@ -1,10 +1,9 @@
-from enum import unique
-from time import timezone
 from django.db import models
 # https://docs.djangoproject.com/en/4.1/ref/urlresolvers/
 from django.urls import reverse
 # https://docs.djangoproject.com/en/4.1/topics/auth/default/
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.utils import timezone
 from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
@@ -49,7 +48,9 @@ class Post(models.Model):
     publish = models.DateField(auto_now = False, auto_now_add = True)
     date_created = models.DateTimeField(default=timezone.now, verbose_name="Час публікації")
     date_updated= models.DateTimeField(auto_now=True, verbose_name="Час зміни")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
+    author = models.ForeignKey(# User,
+                               settings.AUTH_USER_MODEL,
+                               on_delete=models.CASCADE, verbose_name="Автор")
     status = models.BooleanField(default=True, verbose_name="Публікація")
     category =  TreeForeignKey(Category, blank=True, null=True, related_name='category', verbose_name="Категорії",on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='postcomment',verbose_name="Лайки", blank=True)
