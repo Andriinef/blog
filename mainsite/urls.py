@@ -25,17 +25,17 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),  # django-allauth
     path("discussions/", include('discussions.urls')),  # discussions site
     path('grappelli/', include('grappelli.urls')),  # grappelli URLS
-] + static( settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static("/media/", document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar
+
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),  # Debug Toolbar
     ] + urlpatterns
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
