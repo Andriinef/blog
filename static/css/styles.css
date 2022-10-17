@@ -96,3 +96,16 @@ p.link-read-post a {
   color: #fff;
   text-decoration: none;
 }
+
+.c-partners {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  }
+.c-adaptive {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  }
